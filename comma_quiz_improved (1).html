@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comma Rules Adventure - Learn & Practice!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #764ba2;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .intro {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-family: Arial, sans-serif;
+        }
+        
+        .tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            transform: scale(1.05);
+        }
+        
+        .content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .rule-box {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .rule-title {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .rule-title::before {
+            content: "📝";
+            font-size: 1.2em;
+        }
+        
+        .rule-explanation {
+            color: #34495e;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .examples {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #4ecdc4;
+        }
+        
+        .example-item {
+            margin: 10px 0;
+            color: #2c3e50;
+            font-size: 1.05em;
+        }
+        
+        .comma {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .quiz-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .quiz-title {
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .question {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .question-text {
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .sentence-display {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: #2c3e50;
+            line-height: 1.8;
+        }
+        
+        .sentence-interactive {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            font-size: 1.1em;
+            color: #2c3e50;
+            line-height: 2;
+            margin-bottom: 15px;
+        }
+        
+        .comma-box {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 2px solid #999;
+            border-radius: 4px;
+            text-align: center;
+            line-height: 26px;
+            margin: 0 2px;
+            cursor: pointer;
+            background: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s;
+            vertical-align: middle;
+        }
+        
+        .comma-box:hover {
+            background: #e8f4f8;
+            border-color: #4ecdc4;
+        }
+        
+        .comma-box.filled {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #e74c3c;
+        }
+        
+        .comma-box.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            animation: pulse 0.5s;
+        }
+        
+        .comma-box.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            animation: shake 0.5s;
+        }
+        
+        .comma-box.missed {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .check-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-top: 15px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .check-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .check-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .feedback.partial {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .score-display {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+            color: white;
+            font-size: 1.3em;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .welcome-section {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .welcome-title {
+            font-size: 2em;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .welcome-text {
+            color: white;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+        
+        .start-quiz-btn {
+            background: white;
+            color: #764ba2;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.3s;
+            font-family: Arial, sans-serif;
+        }
+        
+        .start-quiz-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .matching-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .matching-column {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .matching-item {
+            background: #f0f3f7;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid #ddd;
+            transition: all 0.3s;
+        }
+        
+        .matching-item:hover {
+            background: #e8f4f8;
+            border-color: #4ecdc4;
+        }
+        
+        .matching-item.selected {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .matching-item.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            animation: pulse 0.5s;
+        }
+              .matching-item.incorrect-match {
+            background: #ffcdd2;
+            border-color: #f44336;
+        }
+        
+        .match-select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            background: white;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .match-line {
+            stroke: #4ecdc4;
+            stroke-width: 3;
+            fill: none;
+        }
+        
+        .instruction-box {
+            background: #e3f2fd;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #2196f3;
+            color: #1565c0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 Comma Rules Adventure 🌟</h1>
+        <p class="intro">Master comma rules by placing commas in the right spots!</p>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('welcome')">Welcome</button>
+            <button class="tab" onclick="showTab('series')">Items in a Series</button>
+            <button class="tab" onclick="showTab('conjunctions')">Coordinating Conjunctions</button>
+            <button class="tab" onclick="showTab('adjectives')">Equal Adjectives</button>
+            <button class="tab" onclick="showTab('dates')">Dates</button>
+            <button class="tab" onclick="showTab('addresses')">Addresses</button>
+            <button class="tab" onclick="showTab('introductory')">Introductory Phrases</button>
+            <button class="tab" onclick="showTab('appositive')">Appositives</button>
+            <button class="tab" onclick="showTab('interruptions')">Interruptions</button>
+            <button class="tab" onclick="showTab('matching')">Matching Game</button>
+            <button class="tab" onclick="showTab('megaquiz')">Mega Quiz!</button>
+        </div>
+        
+        <!-- Welcome Section -->
+        <div id="welcome" class="content active">
+            <div class="welcome-section">
+                <h2 class="welcome-title">Welcome to Comma Rules Adventure!</h2>
+                <p class="welcome-text">
+                    Hi there! 👋 Ready to become a comma expert? <br><br>
+                    <p>In this interactive adventure, you'll learn 8 important comma rules by actually placing commas in sentences! Each section has:</p>
+                <p>✨ Clear explanations with examples<br>
+                ✨ Interactive exercises where YOU place the commas<br>
+                ✨ A matching game to test your knowledge<br>
+                ✨ A challenging Mega Quiz with 25 questions!</p>
+                <p><strong>⚠️ IMPORTANT:</strong> Click on boxes to add commas. <strong>Some sentences might NOT need ANY commas</strong> - that's okay! Just leave all the boxes empty and click "Check Answer". Think carefully about each one!</p>
+                <p>Ready? Let's get started!</p>
+                </p>
+                <button class="start-quiz-btn" onclick="showTab('series')">Let's Start Learning!</button>
+            </div>
+        </div>
+        
+        <!-- Items in a Series -->
+        <div id="series" class="content">
+            <div class="rule-box">
+                <h2 class="rule-title">Items in a Series</h2>
+                <div class="rule-explanation">
+                    Use commas to separate three or more items in a list. Always use a comma before "and" or "or" at the end (called the Oxford comma) to make your writing clear!
+                </div>
+                <div class="examples">
+                    <div class="example-item">✓ I packed my backpack with snacks<span class="comma">,</span> games<span class="comma">,</span> and my favorite book.</div>
+                    <div class="example-item">✓ We can watch a movie<span class="comma">,</span> play video games<span class="comma">,</span> or build a fort.</div>
+                    <div class="example-item">✓ My puppy is fluffy<span class="comma">,</span> playful<span class="comma">,</span> and super friendly.</div>
+                </div>
+            </div>
+            
+            <div class="quiz-section">
+                <h3 class="quiz-title">Practice Time! 🎯</h3>
+                <div class="instruction-box">Click on the boxes where commas belong, then click "Check Answer". <strong>Remember: Some sentences might NOT need any commas!</strong></div>
+                
+                <div class="question">
+                    <div class="question-text">1. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">My favorite ice cream flavors are chocolate vanilla and strawberry.</div>
+                    <div class="sentence-interactive">
+                        My favorite ice cream flavors are chocolate<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> vanilla<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> strawberry.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'series1')">Check Answer</button>
+                    <div class="feedback" id="series1-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">2. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">For my birthday party I want pizza cake balloons and games.</div>
+                    <div class="sentence-interactive">
+                        For my birthday party I want pizza<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> cake<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> balloons<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> games.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'series2')">Check Answer</button>
+                    <div class="feedback" id="series2-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">3. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">My best friends are Emma Liam Sophia and Noah.</div>
+                    <div class="sentence-interactive">
+                        My best friends are Emma<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Liam<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Sophia<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> Noah.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'series3')">Check Answer</button>
+                    <div class="feedback" id="series3-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">4. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">We need to bring sunscreen towels snacks and beach toys to the pool.</div>
+                    <div class="sentence-interactive">
+                        We need to bring sunscreen<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> towels<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> snacks<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> beach toys to the pool.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'series4')">Check Answer</button>
+                    <div class="feedback" id="series4-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">5. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">The superhero can fly run super fast lift heavy objects and shoot lasers from his eyes.</div>
+                    <div class="sentence-interactive">
+                        The superhero can fly<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> run super fast<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> lift heavy objects<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> shoot lasers from his eyes.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'series5')">Check Answer</button>
+                    <div class="feedback" id="series5-feedback"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Coordinating Conjunctions -->
+        <div id="conjunctions" class="content">
+            <div class="rule-box">
+                <h2 class="rule-title">Coordinating Conjunctions (FANBOYS)</h2>
+                <div class="rule-explanation">
+                    Use a comma before coordinating conjunctions (for, and, nor, but, or, yet, so) when they connect two complete sentences (independent clauses).
+                </div>
+                <div class="examples">
+                    <div class="example-item">✓ I wanted to go to the pool<span class="comma">,</span> but it was raining outside.</div>
+                    <div class="example-item">✓ She practiced her spelling words<span class="comma">,</span> so she aced the test.</div>
+                    <div class="example-item">✓ We can ride our bikes<span class="comma">,</span> or we can go skateboarding.</div>
+                    <div class="example-item">✗ I like pizza and tacos. (No comma - "tacos" isn't a complete sentence)</div>
+                </div>
+            </div>
+            
+            <div class="quiz-section">
+                <h3 class="quiz-title">Practice Time! 🎯</h3>
+                <div class="instruction-box">Click on the boxes where commas belong, then click "Check Answer". <strong>Remember: Some sentences might NOT need any commas!</strong></div>
+                
+                <div class="question">
+                    <div class="question-text">1. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">I finished my homework and I went outside to play basketball.</div>
+                    <div class="sentence-interactive">
+                        I finished my homework<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> and I went outside to play basketball.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'conj1')">Check Answer</button>
+                    <div class="feedback" id="conj1-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">2. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">My dog barked loudly but nobody answered the door.</div>
+                    <div class="sentence-interactive">
+                        My dog barked loudly<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> but nobody answered the door.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'conj2')">Check Answer</button>
+                    <div class="feedback" id="conj2-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">3. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">The game was exciting and everyone cheered loudly.</div>
+                    <div class="sentence-interactive">
+                        The game was exciting<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> and everyone cheered loudly.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'conj3')">Check Answer</button>
+                    <div class="feedback" id="conj3-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">4. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">She wanted to go to the sleepover yet she had too much homework to finish.</div>
+                    <div class="sentence-interactive">
+                        She wanted to go to the sleepover<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> yet she had too much homework to finish.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'conj4')">Check Answer</button>
+                    <div class="feedback" id="conj4-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">5. Add commas to this sentence (careful - this one doesn't need any!):</div>
+                    <div class="sentence-display">I love playing soccer and basketball.</div>
+                    <div class="sentence-interactive">
+                        I love playing soccer<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> basketball.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'conj5')">Check Answer</button>
+                    <div class="feedback" id="conj5-feedback"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Equal Adjectives -->
+        <div id="adjectives" class="content">
+            <div class="rule-box">
+                <h2 class="rule-title">Equal Adjectives</h2>
+                <div class="rule-explanation">
+                    Use a comma between two adjectives that equally describe a noun. Test: If you can put "and" between them or reverse their order and it still makes sense, use a comma!
+                </div>
+                <div class="examples">
+                    <div class="example-item">✓ She has a kind<span class="comma">,</span> helpful teacher. (kind AND helpful)</div>
+                    <div class="example-item">✓ It was a long<span class="comma">,</span> boring movie. (long AND boring)</div>
+                    <div class="example-item">✗ I have three blue marbles. (Can't say "three AND blue")</div>
+                </div>
+            </div>
+            
+            <div class="quiz-section">
+                <h3 class="quiz-title">Practice Time! 🎯</h3>
+                <div class="instruction-box">Click on the boxes where commas belong, then click "Check Answer". <strong>Remember: Some sentences might NOT need any commas!</strong></div>
+                
+                <div class="question">
+                    <div class="question-text">1. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">It was a dark spooky night on Halloween.</div>
+                    <div class="sentence-interactive">
+                        It was a dark<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> spooky night on Halloween.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'adj1')">Check Answer</button>
+                    <div class="feedback" id="adj1-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">2. Add commas to this sentence (careful!):</div>
+                    <div class="sentence-display">The excited young students played at recess.</div>
+                    <div class="sentence-interactive">
+                        The excited<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> young students played at recess.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'adj2')">Check Answer</button>
+                    <div class="feedback" id="adj2-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">3. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">The delicious warm cookies smelled amazing.</div>
+                    <div class="sentence-interactive">
+                        The delicious<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> warm cookies smelled amazing.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'adj3')">Check Answer</button>
+                    <div class="feedback" id="adj3-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">4. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">My annoying little brother keeps bothering me.</div>
+                    <div class="sentence-interactive">
+                        My annoying<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> little brother keeps bothering me.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'adj4')">Check Answer</button>
+                    <div class="feedback" id="adj4-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">5. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">The loud annoying alarm woke me up early.</div>
+                    <div class="sentence-interactive">
+                        The loud<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> annoying alarm woke me up early.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'adj5')">Check Answer</button>
+                    <div class="feedback" id="adj5-feedback"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dates -->
+        <div id="dates" class="content">
+            <div class="rule-box">
+                <h2 class="rule-title">Dates</h2>
+                <div class="rule-explanation">
+                    When writing full dates, use commas to separate the day from the year, and put a comma after the year if the sentence continues. For just month and year, no comma is needed!
+                </div>
+                <div class="examples">
+                    <div class="example-item">✓ My birthday is June 15<span class="comma">,</span> 2015.</div>
+                    <div class="example-item">✓ On December 25<span class="comma">,</span> 2024<span class="comma">,</span> we had a huge snowball fight.</div>
+                    <div class="example-item">✓ I was born in May 2015. (No comma - just month and year)</div>
+                </div>
+            </div>
+            
+            <div class="quiz-section">
+                <h3 class="quiz-title">Practice Time! 🎯</h3>
+                <div class="instruction-box">Click on the boxes where commas belong, then click "Check Answer". <strong>Remember: Some sentences might NOT need any commas!</strong></div>
+                
+                <div class="question">
+                    <div class="question-text">1. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">School starts on August 26 2024.</div>
+                    <div class="sentence-interactive">
+                        School starts on August 26<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> 2024.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'date1')">Check Answer</button>
+                    <div class="feedback" id="date1-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">2. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">On July 4 1776 America declared independence.</div>
+                    <div class="sentence-interactive">
+                        On July 4<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> 1776<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> America declared independence.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'date2')">Check Answer</button>
+                    <div class="feedback" id="date2-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">3. Add commas to this sentence (careful!):</div>
+                    <div class="sentence-display">We went to Disney World in June 2023.</div>
+                    <div class="sentence-interactive">
+                        We went to Disney World in June<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> 2023.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'date3')">Check Answer</button>
+                    <div class="feedback" id="date3-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">4. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">My little sister was born on March 10 2018 at the hospital.</div>
+                    <div class="sentence-interactive">
+                        My little sister was born on March 10<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> 2018<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> at the hospital.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'date4')">Check Answer</button>
+                    <div class="feedback" id="date4-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">5. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">The concert is scheduled for Friday November 15 2024 at 7 PM.</div>
+                    <div class="sentence-interactive">
+                        The concert is scheduled for Friday<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> November 15<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> 2024<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> at 7 PM.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'date5')">Check Answer</button>
+                    <div class="feedback" id="date5-feedback"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Addresses -->
+        <div id="addresses" class="content">
+            <div class="rule-box">
+                <h2 class="rule-title">Addresses</h2>
+                <div class="rule-explanation">
+                    Use commas to separate parts of an address: between the city and state, and after the state if the sentence continues. Don't put a comma between the state and ZIP code!
+                </div>
+                <div class="examples">
+                    <div class="example-item">✓ I live in Orlando<span class="comma">,</span> Florida.</div>
+                    <div class="example-item">✓ She moved to Austin<span class="comma">,</span> Texas<span class="comma">,</span> last summer.</div>
+                    <div class="example-item">✓ I visited Paris<span class="comma">,</span> France<span class="comma">,</span> with my family.</div>
+                </div>
+            </div>
+            
+            <div class="quiz-section">
+                <h3 class="quiz-title">Practice Time! 🎯</h3>
+                <div class="instruction-box">Click on the boxes where commas belong, then click "Check Answer". <strong>Remember: Some sentences might NOT need any commas!</strong></div>
+                
+                <div class="question">
+                    <div class="question-text">1. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">My grandma lives in Seattle Washington.</div>
+                    <div class="sentence-interactive">
+                        My grandma lives in Seattle<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Washington.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'addr1')">Check Answer</button>
+                    <div class="feedback" id="addr1-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">2. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">I visited Tokyo Japan last year.</div>
+                    <div class="sentence-interactive">
+                        I visited Tokyo<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Japan<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> last year.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'addr2')">Check Answer</button>
+                    <div class="feedback" id="addr2-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">3. Add commas to this sentence (careful!):</div>
+                    <div class="sentence-display">The package was sent to Miami Florida 33101.</div>
+                    <div class="sentence-interactive">
+                        The package was sent to Miami<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Florida<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> 33101.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'addr3')">Check Answer</button>
+                    <div class="feedback" id="addr3-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">4. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">We drove through Denver Colorado on our road trip.</div>
+                    <div class="sentence-interactive">
+                        We drove through Denver<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Colorado<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> on our road trip.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'addr4')">Check Answer</button>
+                    <div class="feedback" id="addr4-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">5. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">My pen pal lives in London England and writes me letters every month.</div>
+                    <div class="sentence-interactive">
+                        My pen pal lives in London<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> England<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> and writes me letters every month.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'addr5')">Check Answer</button>
+                    <div class="feedback" id="addr5-feedback"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Introductory Phrases -->
+        <div id="introductory" class="content">
+            <div class="rule-box">
+                <h2 class="rule-title">Introductory Phrases and Clauses</h2>
+                <div class="rule-explanation">
+                    Use a comma after an introductory word, phrase, or clause that comes before the main part of the sentence. This helps readers know where the introduction ends!
+                </div>
+                <div class="examples">
+                    <div class="example-item">✓ After the game<span class="comma">,</span> we went out for ice cream.</div>
+                    <div class="example-item">✓ Yes<span class="comma">,</span> I would love to come to your sleepover!</div>
+                    <div class="example-item">✓ When it started raining<span class="comma">,</span> we ran inside quickly.</div>
+                </div>
+            </div>
+            
+            <div class="quiz-section">
+                <h3 class="quiz-title">Practice Time! 🎯</h3>
+                <div class="instruction-box">Click on the boxes where commas belong, then click "Check Answer". <strong>Remember: Some sentences might NOT need any commas!</strong></div>
+                
+                <div class="question">
+                    <div class="question-text">1. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">After school I play soccer with my friends.</div>
+                    <div class="sentence-interactive">
+                        After school<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> I play soccer with my friends.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'intro1')">Check Answer</button>
+                    <div class="feedback" id="intro1-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">2. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">Before breakfast I always brush my teeth.</div>
+                    <div class="sentence-interactive">
+                        Before breakfast<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> I always brush my teeth.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'intro2')">Check Answer</button>
+                    <div class="feedback" id="intro2-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">3. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">When the bell rang everyone rushed to lunch.</div>
+                    <div class="sentence-interactive">
+                        When the bell rang<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> everyone rushed to lunch.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'intro3')">Check Answer</button>
+                    <div class="feedback" id="intro3-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">4. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">During the summer vacation we went camping in the mountains.</div>
+                    <div class="sentence-interactive">
+                        During the summer vacation<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> we went camping in the mountains.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'intro4')">Check Answer</button>
+                    <div class="feedback" id="intro4-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">5. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">Wow that was the coolest trick I've ever seen!</div>
+                    <div class="sentence-interactive">
+                        Wow<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> that was the coolest trick I've ever seen!
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'intro5')">Check Answer</button>
+                    <div class="feedback" id="intro5-feedback"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Appositive Phrases -->
+        <div id="appositive" class="content">
+            <div class="rule-box">
+                <h2 class="rule-title">Explanatory and Appositive Phrases</h2>
+                <div class="rule-explanation">
+                    An appositive is a word or phrase that renames or explains a noun. Use commas before and after an appositive phrase to set it off from the rest of the sentence.
+                </div>
+                <div class="examples">
+                    <div class="example-item">✓ My best friend<span class="comma">,</span> Sarah<span class="comma">,</span> loves to read mystery books.</div>
+                    <div class="example-item">✓ Mr. Johnson<span class="comma">,</span> our science teacher<span class="comma">,</span> is really funny.</div>
+                    <div class="example-item">✓ My dog<span class="comma">,</span> a golden retriever<span class="comma">,</span> loves to swim.</div>
+                </div>
+            </div>
+            
+            <div class="quiz-section">
+                <h3 class="quiz-title">Practice Time! 🎯</h3>
+                <div class="instruction-box">Click on the boxes where commas belong, then click "Check Answer". <strong>Remember: Some sentences might NOT need any commas!</strong></div>
+                
+                <div class="question">
+                    <div class="question-text">1. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">My cousin Emily is visiting this weekend.</div>
+                    <div class="sentence-interactive">
+                        My cousin<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Emily<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> is visiting this weekend.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'app1')">Check Answer</button>
+                    <div class="feedback" id="app1-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">2. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">My favorite book a fantasy novel is on the shelf.</div>
+                    <div class="sentence-interactive">
+                        My favorite book<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> a fantasy novel<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> is on the shelf.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'app2')">Check Answer</button>
+                    <div class="feedback" id="app2-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">3. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">The principal Mrs. Rodriguez announced a field trip.</div>
+                    <div class="sentence-interactive">
+                        The principal<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Mrs. Rodriguez<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> announced a field trip.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'app3')">Check Answer</button>
+                    <div class="feedback" id="app3-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">4. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">My brother Jake is learning to play guitar.</div>
+                    <div class="sentence-interactive">
+                        My brother<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Jake<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> is learning to play guitar.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'app4')">Check Answer</button>
+                    <div class="feedback" id="app4-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">5. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">The movie a superhero adventure was amazing!</div>
+                    <div class="sentence-interactive">
+                        The movie<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> a superhero adventure<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> was amazing!
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'app5')">Check Answer</button>
+                    <div class="feedback" id="app5-feedback"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Interruptions and Interjections -->
+        <div id="interruptions" class="content">
+            <div class="rule-box">
+                <h2 class="rule-title">Interruptions and Interjections</h2>
+                <div class="rule-explanation">
+                    Use commas to set off words or phrases that interrupt the flow of a sentence, or interjections (words that show emotion). These commas help readers know what's the main idea and what's extra information.
+                </div>
+                <div class="examples">
+                    <div class="example-item">✓ The answer<span class="comma">,</span> I think<span class="comma">,</span> is forty-two.</div>
+                    <div class="example-item">✓ Wow<span class="comma">,</span> that roller coaster was incredible!</div>
+                    <div class="example-item">✓ This homework<span class="comma">,</span> believe it or not<span class="comma">,</span> is actually fun.</div>
+                </div>
+            </div>
+            
+            <div class="quiz-section">
+                <h3 class="quiz-title">Practice Time! 🎯</h3>
+                <div class="instruction-box">Click on the boxes where commas belong, then click "Check Answer". <strong>Remember: Some sentences might NOT need any commas!</strong></div>
+                
+                <div class="question">
+                    <div class="question-text">1. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">The test I believe is on Friday.</div>
+                    <div class="sentence-interactive">
+                        The test<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> I believe<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> is on Friday.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'int1')">Check Answer</button>
+                    <div class="feedback" id="int1-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">2. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">Hey did you finish your science project?</div>
+                    <div class="sentence-interactive">
+                        Hey<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> did you finish your science project?
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'int2')">Check Answer</button>
+                    <div class="feedback" id="int2-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">3. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">This game in my opinion is the best one ever.</div>
+                    <div class="sentence-interactive">
+                        This game<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> in my opinion<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> is the best one ever.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'int3')">Check Answer</button>
+                    <div class="feedback" id="int3-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">4. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">Oh no I forgot my lunch at home!</div>
+                    <div class="sentence-interactive">
+                        Oh no<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> I forgot my lunch at home!
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'int4')">Check Answer</button>
+                    <div class="feedback" id="int4-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">5. Place commas if needed in this sentence:</div>
+                    <div class="sentence-display">The pizza by the way was absolutely delicious.</div>
+                    <div class="sentence-interactive">
+                        The pizza<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> by the way<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> was absolutely delicious.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'int5')">Check Answer</button>
+                    <div class="feedback" id="int5-feedback"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Matching Game -->
+        <div id="matching" class="content">
+            <div class="quiz-section">
+                <h3 class="quiz-title">🎮 Matching Game - Match the Sentence to the Rule! 🎮</h3>
+                <div class="instruction-box">For each sentence, select the comma rule from the dropdown menu. Get all 8 correct!</div>
+                
+                <div style="max-width: 700px; margin: 0 auto;">
+                    <div class="matching-item" data-match="series">
+                        <strong>1.</strong> I love pizza, tacos, and burgers.
+                        <select id="match1" class="match-select">
+                            <option value="">-- Choose a rule --</option>
+                            <option value="series">Items in a Series</option>
+                            <option value="conjunction">Coordinating Conjunction</option>
+                            <option value="adjective">Equal Adjectives</option>
+                            <option value="date">Dates</option>
+                            <option value="address">Addresses</option>
+                            <option value="introductory">Introductory Phrase</option>
+                            <option value="appositive">Appositive</option>
+                            <option value="interruption">Interruption</option>
+                        </select>
+                    </div>
+                    
+                    <div class="matching-item" data-match="conjunction">
+                        <strong>2.</strong> I wanted to play, but it was raining.
+                        <select id="match2" class="match-select">
+                            <option value="">-- Choose a rule --</option>
+                            <option value="series">Items in a Series</option>
+                            <option value="conjunction">Coordinating Conjunction</option>
+                            <option value="adjective">Equal Adjectives</option>
+                            <option value="date">Dates</option>
+                            <option value="address">Addresses</option>
+                            <option value="introductory">Introductory Phrase</option>
+                            <option value="appositive">Appositive</option>
+                            <option value="interruption">Interruption</option>
+                        </select>
+                    </div>
+                    
+                    <div class="matching-item" data-match="adjective">
+                        <strong>3.</strong> The big, scary monster roared loudly.
+                        <select id="match3" class="match-select">
+                            <option value="">-- Choose a rule --</option>
+                            <option value="series">Items in a Series</option>
+                            <option value="conjunction">Coordinating Conjunction</option>
+                            <option value="adjective">Equal Adjectives</option>
+                            <option value="date">Dates</option>
+                            <option value="address">Addresses</option>
+                            <option value="introductory">Introductory Phrase</option>
+                            <option value="appositive">Appositive</option>
+                            <option value="interruption">Interruption</option>
+                        </select>
+                    </div>
+                    
+                    <div class="matching-item" data-match="date">
+                        <strong>4.</strong> My birthday is May 15, 2015.
+                        <select id="match4" class="match-select">
+                            <option value="">-- Choose a rule --</option>
+                            <option value="series">Items in a Series</option>
+                            <option value="conjunction">Coordinating Conjunction</option>
+                            <option value="adjective">Equal Adjectives</option>
+                            <option value="date">Dates</option>
+                            <option value="address">Addresses</option>
+                            <option value="introductory">Introductory Phrase</option>
+                            <option value="appositive">Appositive</option>
+                            <option value="interruption">Interruption</option>
+                        </select>
+                    </div>
+                    
+                    <div class="matching-item" data-match="address">
+                        <strong>5.</strong> She lives in Boston, Massachusetts.
+                        <select id="match5" class="match-select">
+                            <option value="">-- Choose a rule --</option>
+                            <option value="series">Items in a Series</option>
+                            <option value="conjunction">Coordinating Conjunction</option>
+                            <option value="adjective">Equal Adjectives</option>
+                            <option value="date">Dates</option>
+                            <option value="address">Addresses</option>
+                            <option value="introductory">Introductory Phrase</option>
+                            <option value="appositive">Appositive</option>
+                            <option value="interruption">Interruption</option>
+                        </select>
+                    </div>
+                    
+                    <div class="matching-item" data-match="introductory">
+                        <strong>6.</strong> After dinner, we played board games.
+                        <select id="match6" class="match-select">
+                            <option value="">-- Choose a rule --</option>
+                            <option value="series">Items in a Series</option>
+                            <option value="conjunction">Coordinating Conjunction</option>
+                            <option value="adjective">Equal Adjectives</option>
+                            <option value="date">Dates</option>
+                            <option value="address">Addresses</option>
+                            <option value="introductory">Introductory Phrase</option>
+                            <option value="appositive">Appositive</option>
+                            <option value="interruption">Interruption</option>
+                        </select>
+                    </div>
+                    
+                    <div class="matching-item" data-match="appositive">
+                        <strong>7.</strong> My friend, Alex, loves skateboarding.
+                        <select id="match7" class="match-select">
+                            <option value="">-- Choose a rule --</option>
+                            <option value="series">Items in a Series</option>
+                            <option value="conjunction">Coordinating Conjunction</option>
+                            <option value="adjective">Equal Adjectives</option>
+                            <option value="date">Dates</option>
+                            <option value="address">Addresses</option>
+                            <option value="introductory">Introductory Phrase</option>
+                            <option value="appositive">Appositive</option>
+                            <option value="interruption">Interruption</option>
+                        </select>
+                    </div>
+                    
+                    <div class="matching-item" data-match="interruption">
+                        <strong>8.</strong> The answer, I think, is correct.
+                        <select id="match8" class="match-select">
+                            <option value="">-- Choose a rule --</option>
+                            <option value="series">Items in a Series</option>
+                            <option value="conjunction">Coordinating Conjunction</option>
+                            <option value="adjective">Equal Adjectives</option>
+                            <option value="date">Dates</option>
+                            <option value="address">Addresses</option>
+                            <option value="introductory">Introductory Phrase</option>
+                            <option value="appositive">Appositive</option>
+                            <option value="interruption">Interruption</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button class="check-button" onclick="checkMatchingDropdown()" style="display: block; margin: 20px auto;">Check My Matches!</button>
+                <div class="feedback" id="matching-feedback"></div>
+                <div class="score-display" id="matching-score" style="display: none;"></div>
+            </div>
+        </div>
+        
+        <!-- Mega Quiz -->
+        <div id="megaquiz" class="content">
+            <div class="quiz-section">
+                <h3 class="quiz-title">🎉 MEGA QUIZ - 25 Questions! 🎉</h3>
+                <p style="text-align: center; margin-bottom: 20px; color: #2c3e50; font-weight: bold;">
+                    This challenging quiz covers ALL the comma rules you've learned. Place commas carefully!
+                </p>
+                <div class="instruction-box">Click on the boxes where commas should go, then click "Check Answer" for each question</div>
+                
+                <div class="question">
+                    <div class="question-text">1. Items in a Series</div>
+                    <div class="sentence-display">I brought markers crayons colored pencils and glue sticks.</div>
+                    <div class="sentence-interactive">
+                        I brought markers<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> crayons<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> colored pencils<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> glue sticks.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega1')">Check Answer</button>
+                    <div class="feedback" id="mega1-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">2. Coordinating Conjunction</div>
+                    <div class="sentence-display">I wanted to play outside but my mom said it was too cold.</div>
+                    <div class="sentence-interactive">
+                        I wanted to play outside<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> but my mom said it was too cold.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega2')">Check Answer</button>
+                    <div class="feedback" id="mega2-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">3. Equal Adjectives</div>
+                    <div class="sentence-display">The loud annoying alarm woke me up.</div>
+                    <div class="sentence-interactive">
+                        The loud<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> annoying alarm woke me up.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega3')">Check Answer</button>
+                    <div class="feedback" id="mega3-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">4. Dates</div>
+                    <div class="sentence-display">My sister was born on March 10 2018.</div>
+                    <div class="sentence-interactive">
+                        My sister was born on March 10<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> 2018.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega4')">Check Answer</button>
+                    <div class="feedback" id="mega4-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">5. Addresses</div>
+                    <div class="sentence-display">I visited London England last summer.</div>
+                    <div class="sentence-interactive">
+                        I visited London<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> England<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> last summer.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega5')">Check Answer</button>
+                    <div class="feedback" id="mega5-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">6. Introductory Phrase</div>
+                    <div class="sentence-display">After the movie I went straight to bed.</div>
+                    <div class="sentence-interactive">
+                        After the movie<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> I went straight to bed.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega6')">Check Answer</button>
+                    <div class="feedback" id="mega6-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">7. Appositive</div>
+                    <div class="sentence-display">My brother Jake is learning to play guitar.</div>
+                    <div class="sentence-interactive">
+                        My brother<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Jake<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> is learning to play guitar.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega7')">Check Answer</button>
+                    <div class="feedback" id="mega7-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">8. Interruption</div>
+                    <div class="sentence-display">The answer I think is definitely correct.</div>
+                    <div class="sentence-interactive">
+                        The answer<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> I think<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> is definitely correct.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega8')">Check Answer</button>
+                    <div class="feedback" id="mega8-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">9. Multiple Rules - Items in Series + Introductory Phrase</div>
+                    <div class="sentence-display">After school we ate snacks did homework and played video games.</div>
+                    <div class="sentence-interactive">
+                        After school<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> we ate snacks<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> did homework<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> played video games.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega9')">Check Answer</button>
+                    <div class="feedback" id="mega9-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">10. Multiple Rules - Dates + Addresses</div>
+                    <div class="sentence-display">On July 4 1776 in Philadelphia Pennsylvania America declared independence.</div>
+                    <div class="sentence-interactive">
+                        On July 4<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> 1776<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> in Philadelphia<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Pennsylvania<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> America declared independence.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega10')">Check Answer</button>
+                    <div class="feedback" id="mega10-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">11. Items in a Series</div>
+                    <div class="sentence-display">My favorite sports are basketball soccer swimming and tennis.</div>
+                    <div class="sentence-interactive">
+                        My favorite sports are basketball<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> soccer<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> swimming<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> tennis.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega11')">Check Answer</button>
+                    <div class="feedback" id="mega11-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">12. Coordinating Conjunction</div>
+                    <div class="sentence-display">She studied really hard so she got an A on the test.</div>
+                    <div class="sentence-interactive">
+                        She studied really hard<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> so she got an A on the test.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega12')">Check Answer</button>
+                    <div class="feedback" id="mega12-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">13. Equal Adjectives</div>
+                    <div class="sentence-display">We watched a funny entertaining movie last night.</div>
+                    <div class="sentence-interactive">
+                        We watched a funny<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> entertaining movie last night.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega13')">Check Answer</button>
+                    <div class="feedback" id="mega13-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">14. Dates with continuation</div>
+                    <div class="sentence-display">On December 25 2024 we opened all our presents.</div>
+                    <div class="sentence-interactive">
+                        On December 25<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> 2024<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> we opened all our presents.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega14')">Check Answer</button>
+                    <div class="feedback" id="mega14-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">15. Addresses with continuation</div>
+                    <div class="sentence-display">My aunt moved to Portland Oregon last month.</div>
+                    <div class="sentence-interactive">
+                        My aunt moved to Portland<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Oregon<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> last month.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega15')">Check Answer</button>
+                    <div class="feedback" id="mega15-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">16. Introductory Phrase</div>
+                    <div class="sentence-display">When I grow up I want to be a veterinarian.</div>
+                    <div class="sentence-interactive">
+                        When I grow up<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> I want to be a veterinarian.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega16')">Check Answer</button>
+                    <div class="feedback" id="mega16-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">17. Appositive</div>
+                    <div class="sentence-display">My cat Whiskers loves to chase laser pointers.</div>
+                    <div class="sentence-interactive">
+                        My cat<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Whiskers<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> loves to chase laser pointers.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega17')">Check Answer</button>
+                    <div class="feedback" id="mega17-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">18. Interruption/Interjection</div>
+                    <div class="sentence-display">Yikes I totally forgot about the math quiz today!</div>
+                    <div class="sentence-interactive">
+                        Yikes<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> I totally forgot about the math quiz today!
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega18')">Check Answer</button>
+                    <div class="feedback" id="mega18-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">19. Multiple Rules - Equal Adjectives + Items in Series</div>
+                    <div class="sentence-display">The tall strong athlete won medals in running jumping and swimming.</div>
+                    <div class="sentence-interactive">
+                        The tall<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> strong athlete won medals in running<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> jumping<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> swimming.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega19')">Check Answer</button>
+                    <div class="feedback" id="mega19-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">20. Multiple Rules - Appositive + Coordinating Conjunction</div>
+                    <div class="sentence-display">My teacher Mr. Smith is really nice and he makes learning fun.</div>
+                    <div class="sentence-interactive">
+                        My teacher<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Mr. Smith<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> is really nice<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> and he makes learning fun.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega20')">Check Answer</button>
+                    <div class="feedback" id="mega20-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">21. Tricky - No commas needed!</div>
+                    <div class="sentence-display">I went to the store and bought milk.</div>
+                    <div class="sentence-interactive">
+                        I went to the store<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> bought milk.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega21')">Check Answer</button>
+                    <div class="feedback" id="mega21-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">22. Multiple Rules - Introductory + Interruption + Items in Series</div>
+                    <div class="sentence-display">Well after thinking about it I want pizza wings fries and a soda.</div>
+                    <div class="sentence-interactive">
+                        Well<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> after thinking about it<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> I want pizza<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> wings<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> fries<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> a soda.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega22')">Check Answer</button>
+                    <div class="feedback" id="mega22-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">23. Complex - Multiple Rules Combined</div>
+                    <div class="sentence-display">My best friend Sarah who lives in Miami Florida loves to surf skateboard and play volleyball.</div>
+                    <div class="sentence-interactive">
+                        My best friend<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Sarah<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> who lives in Miami<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Florida<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> loves to surf<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> skateboard<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> play volleyball.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega23')">Check Answer</button>
+                    <div class="feedback" id="mega23-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">24. Complex - Multiple Rules Combined</div>
+                    <div class="sentence-display">After the long tiring day on Saturday June 15 2024 we watched movies ate popcorn and fell asleep on the couch.</div>
+                    <div class="sentence-interactive">
+                        After the long<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> tiring day on Saturday<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> June 15<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> 2024<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> we watched movies<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> ate popcorn<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> fell asleep on the couch.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega24')">Check Answer</button>
+                    <div class="feedback" id="mega24-feedback"></div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">25. Super Complex - ALL Rules Combined!</div>
+                    <div class="sentence-display">Well my cousin Jake a talented musician from Austin Texas performed on May 20 2024 and he played guitar sang songs and amazed the huge excited crowd.</div>
+                    <div class="sentence-interactive">
+                        Well<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> my cousin<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Jake<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> a talented musician from Austin<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> Texas<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> performed on May 20<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> 2024<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> he played guitar<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> sang songs<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> and<span class="comma-box" data-correct="false" onclick="toggleComma(this)"></span> amazed the huge<span class="comma-box" data-correct="true" onclick="toggleComma(this)"></span> excited crowd.
+                    </div>
+                    <button class="check-button" onclick="checkCommaPlacement(this, 'mega25')">Check Answer</button>
+                    <div class="feedback" id="mega25-feedback"></div>
+                </div>
+                
+                <button class="check-button" onclick="calculateMegaScore()" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); font-size: 1.3em; padding: 15px 40px; margin-top: 30px;">Calculate My Total Score!</button>
+                <div class="score-display" id="mega-score" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        var scores = {};
+        var megaAnswers = {};
+        var matchingData = {
+            selectedSentence: null,
+            selectedRule: null,
+            matches: {}
+        };
+        
+        function showTab(tabName) {
+            var contents = document.querySelectorAll('.content');
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
+            }
+            
+            var tabs = document.querySelectorAll('.tab');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            
+            document.getElementById(tabName).classList.add('active');
+            
+            var allTabs = document.querySelectorAll('.tab');
+            for (var i = 0; i < allTabs.length; i++) {
+                var tabText = allTabs[i].textContent.toLowerCase();
+                if ((tabName === 'welcome' && tabText.indexOf('welcome') !== -1) ||
+                    (tabName === 'series' && tabText.indexOf('items') !== -1) ||
+                    (tabName === 'conjunctions' && tabText.indexOf('coordinating') !== -1) ||
+                    (tabName === 'adjectives' && tabText.indexOf('adjectives') !== -1) ||
+                    (tabName === 'dates' && tabText.indexOf('dates') !== -1) ||
+                    (tabName === 'addresses' && tabText.indexOf('addresses') !== -1) ||
+                    (tabName === 'introductory' && tabText.indexOf('introductory') !== -1) ||
+                    (tabName === 'appositive' && tabText.indexOf('appositives') !== -1) ||
+                    (tabName === 'interruptions' && tabText.indexOf('interruptions') !== -1) ||
+                    (tabName === 'matching' && tabText.indexOf('matching') !== -1) ||
+                    (tabName === 'megaquiz' && tabText.indexOf('mega') !== -1)) {
+                    allTabs[i].classList.add('active');
+                }
+            }
+        }
+        
+        function toggleComma(element) {
+            if (element.classList.contains('filled')) {
+                element.classList.remove('filled');
+                element.textContent = '';
+            } else {
+                element.classList.add('filled');
+                element.textContent = ',';
+            }
+        }
+        
+        function checkCommaPlacement(button, questionId) {
+            var question = button.parentElement;
+            var boxes = question.querySelectorAll('.comma-box');
+            var allCorrect = true;
+            var someCorrect = false;
+            
+            for (var i = 0; i < boxes.length; i++) {
+                var box = boxes[i];
+                var shouldHaveComma = box.getAttribute('data-correct') === 'true';
+                var hasComma = box.classList.contains('filled');
+                
+                box.classList.remove('correct', 'incorrect', 'missed');
+                
+                if (shouldHaveComma && hasComma) {
+                    box.classList.add('correct');
+                    someCorrect = true;
+                } else if (!shouldHaveComma && !hasComma) {
+                    someCorrect = true;
+                } else if (shouldHaveComma && !hasComma) {
+                    box.classList.add('missed');
+                    allCorrect = false;
+                } else {
+                    box.classList.add('incorrect');
+                    allCorrect = false;
+                }
+            }
+            
+            var feedbackElement = document.getElementById(questionId + '-feedback');
+            feedbackElement.style.display = 'block';
+            
+            if (allCorrect) {
+                feedbackElement.className = 'feedback correct';
+                feedbackElement.textContent = '✨ Perfect! You got all the commas right!';
+                scores[questionId] = true;
+                if (questionId.indexOf('mega') === 0) {
+                    megaAnswers[questionId] = true;
+                }
+            } else if (someCorrect) {
+                feedbackElement.className = 'feedback partial';
+                feedbackElement.textContent = '💡 Almost there! Check the highlighted boxes.';
+                scores[questionId] = false;
+                if (questionId.indexOf('mega') === 0) {
+                    megaAnswers[questionId] = false;
+                }
+            } else {
+                feedbackElement.className = 'feedback incorrect';
+                feedbackElement.textContent = '❌ Not quite. Try again!';
+                scores[questionId] = false;
+                if (questionId.indexOf('mega') === 0) {
+                    megaAnswers[questionId] = false;
+                }
+            }
+            
+            button.disabled = true;
+            
+            // Add Try Again button if not already present
+            var tryAgainBtn = button.parentElement.querySelector('.try-again-button');
+            if (!tryAgainBtn) {
+                tryAgainBtn = document.createElement('button');
+                tryAgainBtn.className = 'check-button try-again-button';
+                tryAgainBtn.textContent = 'Try Again';
+                tryAgainBtn.style.marginLeft = '10px';
+                tryAgainBtn.onclick = function() {
+                    resetQuestion(button, questionId, feedbackElement);
+                };
+                button.parentElement.insertBefore(tryAgainBtn, button.nextSibling);
+            }
+        }
+        
+        function resetQuestion(checkButton, questionId, feedbackElement) {
+            // Clear all comma boxes
+            var question = checkButton.closest('.question');
+            var boxes = question.querySelectorAll('.comma-box');
+            for (var i = 0; i < boxes.length; i++) {
+                boxes[i].textContent = '';
+                boxes[i].classList.remove('filled', 'correct', 'incorrect', 'missed');
+            }
+            
+            // Hide feedback
+            feedbackElement.style.display = 'none';
+            
+            // Re-enable check button
+            checkButton.disabled = false;
+            
+            // Remove Try Again button
+            var tryAgainBtn = checkButton.parentElement.querySelector('.try-again-button');
+            if (tryAgainBtn) {
+                tryAgainBtn.remove();
+            }
+        }
+        
+        function selectSentence(element) {
+            var sentences = document.querySelectorAll('[data-match]');
+            for (var i = 0; i < sentences.length; i++) {
+                sentences[i].classList.remove('selected');
+            }
+            element.classList.add('selected');
+            matchingData.selectedSentence = element;
+            
+            if (matchingData.selectedRule) {
+                var sentenceMatch = element.getAttribute('data-match');
+                var ruleMatch = matchingData.selectedRule.getAttribute('data-rule');
+                matchingData.matches[sentenceMatch] = ruleMatch;
+                
+                matchingData.selectedSentence = null;
+                matchingData.selectedRule.classList.remove('selected');
+                matchingData.selectedRule = null;
+            }
+        }
+        
+        function selectRule(element) {
+            var rules = document.querySelectorAll('[data-rule]');
+            for (var i = 0; i < rules.length; i++) {
+                rules[i].classList.remove('selected');
+            }
+            element.classList.add('selected');
+            matchingData.selectedRule = element;
+            
+            if (matchingData.selectedSentence) {
+                var sentenceMatch = matchingData.selectedSentence.getAttribute('data-match');
+                var ruleMatch = element.getAttribute('data-rule');
+                matchingData.matches[sentenceMatch] = ruleMatch;
+                
+                matchingData.selectedSentence.classList.remove('selected');
+                matchingData.selectedSentence = null;
+                matchingData.selectedRule = null;
+            }
+        }
+        
+        function checkMatchingDropdown() {
+            var correctMatches = 0;
+            var totalMatches = 8;
+            
+            var items = document.querySelectorAll('#matching .matching-item');
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                var correctRule = item.getAttribute('data-match');
+                var select = item.querySelector('.match-select');
+                var selectedRule = select.value;
+                
+                item.classList.remove('correct-match', 'incorrect-match');
+                
+                if (selectedRule === correctRule) {
+                    item.classList.add('correct-match');
+                    correctMatches++;
+                } else if (selectedRule !== '') {
+                    item.classList.add('incorrect-match');
+                }
+            }
+            
+            var feedbackElement = document.getElementById('matching-feedback');
+            feedbackElement.style.display = 'block';
+            
+            if (correctMatches === totalMatches) {
+                feedbackElement.className = 'feedback correct';
+                feedbackElement.textContent = '🎉 Perfect! You matched all sentences correctly!';
+            } else if (correctMatches >= 6) {
+                feedbackElement.className = 'feedback partial';
+                feedbackElement.textContent = '👍 Good job! You got ' + correctMatches + ' out of ' + totalMatches + ' correct!';
+            } else {
+                feedbackElement.className = 'feedback incorrect';
+                feedbackElement.textContent = '💡 Keep trying! You got ' + correctMatches + ' out of ' + totalMatches + ' correct.';
+            }
+            
+            var scoreDisplay = document.getElementById('matching-score');
+            scoreDisplay.innerHTML = 'Your Matching Score: ' + correctMatches + ' out of ' + totalMatches;
+            scoreDisplay.style.display = 'block';
+        }
+        
+        function checkMatching() {
+            checkMatchingDropdown();
+        }
+        
+        function calculateMegaScore() {
+            var totalQuestions = 25;
+            var correctAnswers = 0;
+            
+            for (var i = 1; i <= totalQuestions; i++) {
+                if (megaAnswers['mega' + i] === true) {
+                    correctAnswers++;
+                }
+            }
+            
+            var percentage = Math.round((correctAnswers / totalQuestions) * 100);
+            var scoreDisplay = document.getElementById('mega-score');
+            
+            var message = '';
+            if (percentage === 100) {
+                message = '🎉 PERFECT SCORE! You are a Comma MASTER! 🎉';
+            } else if (percentage >= 90) {
+                message = '🌟 Outstanding! You really know your commas! 🌟';
+            } else if (percentage >= 80) {
+                message = '👏 Great job! You are doing excellent! 👏';
+            } else if (percentage >= 70) {
+                message = '👍 Good work! Keep practicing! 👍';
+            } else if (percentage >= 60) {
+                message = '📚 Nice effort! Review the rules and try again! 📚';
+            } else {
+                message = '💪 Keep studying! You will get there! 💪';
+            }
+            
+            scoreDisplay.innerHTML = 
+                'Your Mega Quiz Score: ' + correctAnswers + ' out of ' + totalQuestions + ' (' + percentage + '%)<br>' +
+                message;
+            scoreDisplay.style.display = 'block';
+            
+            scoreDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
+
